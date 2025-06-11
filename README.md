@@ -99,7 +99,7 @@ GET    /api/facturas/<id>/pdf
 GET    /api/facturas/<id>/xml
 POST   /api/facturas/<id>/enviar-dian
 GET    /api/facturas/<id>/estado-dian
-
+```
 --- 
 ## 📐 Arquitectura de la App Web
 - Esquema en construcción.
