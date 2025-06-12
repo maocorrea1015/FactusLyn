@@ -1,99 +1,135 @@
-# Factuslyn - Rama de Desarrollo 🧪
+# Sistema de Facturación Electrónica – Backend en Flask
 
-Este documento está dirigido a los desarrolladores que trabajan en la rama de desarrollo de **Factuslyn**, el sistema de gestión de facturación web. Aquí encontrarás los pasos básicos para clonar el proyecto, configurar el entorno de desarrollo y trabajar correctamente con Git.
+**Versión:** 1.0  
+**Fecha:** 26 de septiembre de 2025  
+**Equipo de Desarrollo:** ProtoDev Labs  
+**Responsable Técnico:** Héctor Mauricio Forero Correa
+
+---
+
+## 🧾 Objetivo del Proyecto
+
+Desarrollar una **API REST** en **Flask (Python)** que gestione el ciclo completo de una factura electrónica conforme a la normativa de la **DIAN**. Esta API será consumida por sistemas frontend o integraciones externas.
 
 ---
 
-## 🔁 Clonar el repositorio
+## 🎯 Alcance del Proyecto (Backend)
 
-Primero, clona el repositorio en tu máquina local:
+### Incluye:
 
-```bash
-git clone https://github.com/tuusuario/factuslyn.git
-```
-```bash
-cd factuslyn
-```
-```bash
-git checkout desarrollo
-```
----
-## 🐍 Crear y activar entorno virtual
-Asegúrate de tener Python 3.10+ instalado.
+- Gestión de autenticación y autorización (usuarios, roles).
+- Endpoints REST para:
+  - Creación de clientes.
+  - Registro de productos y servicios.
+  - Generación de facturas electrónicas.
+  - Generación de XML en formato UBL 2.1.
+  - Firma digital de la factura.
+  - Envío automático a la DIAN.
+  - Registro del acuse de recibo y estado de la factura.
+- Endpoints para consulta y descarga (PDF, XML).
+- Logs de auditoría.
+- Seguridad de la API (token JWT, HTTPS).
+- Estructura modular y escalable.
 
----
-## En Linux/macOS:
-```bash
-python3 -m venv env
-source env/bin/activate
-```
----
-## En Windows:
-```bash
-python -m venv env
-env\Scripts\activate
-```
----
-## 📦 Instalar dependencias
-Instala las librerías necesarias usando pip:
+### No incluye:
 
-```bash
-pip install -r requirements.txt
-```
----
-
-## ⚙️ Variables de entorno
-Crea un archivo .env (si aplica) con las variables necesarias para desarrollo, como por ejemplo:
-
-```bash 
-FLASK_APP=app.py
-FLASK_ENV=development
-DATABASE_URL=sqlite:///database.db
-```
-## Nota: Consulta con el equipo si hay un .env.example disponible.
----
-## 🧪 Ejecutar la app en modo desarrollo
-```bash
-flask run
-```
----
-## 🧬 Comandos útiles de Git
-Crear nueva rama desde desarrollo:
-```bash
-git checkout desarrollo
-git pull origin desarrollo
-git checkout -b nombre-de-tu-rama
-Subir tus cambios:
-```
-```bash
-git add .
-git commit -m "Descripción clara del cambio"
-git push origin nombre-de-tu-rama
-```
-Hacer merge de tu rama a desarrollo (vía PR preferiblemente):
-Abre un Pull Request desde tu rama hacia desarrollo.
-
-Asegúrate de que pase la revisión de código.
-
-Haz merge desde la interfaz de GitHub o GitLab.
+- Desarrollo frontend (web o móvil).
+- Interfaz de usuario.
+- Infraestructura de despliegue (DevOps, nube).
+- Aplicaciones POS, nómina o notas crédito/débito (en esta versión).
 
 ---
-## 📌 Recomendaciones
-Mantén tu rama actualizada con desarrollo:
 
-```bash
-git checkout desarrollo
-git pull origin desarrollo
-git checkout tu-rama
-git merge desarrollo
+## 🧱 Arquitectura General
+
+- **Arquitectura:** Desacoplada, API RESTful consumible por otros sistemas.
+- **Tecnologías:** Python 3.11+, Flask, SQLAlchemy, JWT, Celery (para tareas asincrónicas).
+- **Base de datos:** PostgreSQL o SQLite (según entorno).
+- **Firma digital:** Integración con proveedor autorizado por la DIAN.
+- **Interfaz con DIAN:** API REST según resolución 000042.
+
+---
+
+## ✅ Requerimientos Funcionales
+
+| ID   | Descripción                                                                 |
+|------|------------------------------------------------------------------------------|
+| Pd-1 | La API debe permitir autenticación vía tokens JWT.                          |
+| Pd-2 | Debe existir un CRUD para clientes y productos.                             |
+| Pd-3 | El sistema debe generar XML conforme al estándar UBL 2.1 exigido por DIAN.  |
+| Pd-4 | El XML debe firmarse digitalmente con un certificado válido.                |
+| Pd-5 | La API debe enviar el XML a la DIAN y registrar la respuesta.               |
+| Pd-6 | Debe haber un endpoint para consultar el estado de una factura en la DIAN.  |
+| Pd-7 | La API debe generar una representación gráfica de la factura (PDF).         |
+| Pd-8 | Endpoints para consultar, filtrar y descargar facturas emitidas.            |
+
+---
+
+## ⚙️ Requerimientos No Funcionales
+
+| ID   | Descripción                                                                 |
+|------|------------------------------------------------------------------------------|
+| Pd-1 | La API debe estar documentada con Swagger/OpenAPI.                          |
+| Pd-2 | Todo acceso a la API debe realizarse por HTTPS.                             |
+| Pd-3 | Se debe registrar toda operación relevante en un sistema de logs.           |
+| Pd-4 | El sistema debe manejar errores y reintentos ante fallos con la DIAN.       |
+| Pd-5 | Cumplimiento con Ley 1581 (protección de datos personales en Colombia).     |
+
+---
+
+## 🔐 Seguridad y Control
+
+- **Autenticación:** JWT con roles diferenciados (admin, operador).
+- **Validación de datos:** con `pydantic` o `marshmallow`.
+- **Trazabilidad:** Logs de eventos como envío, errores, accesos y respuestas DIAN.
+- **Acceso:** Limitado por token y nivel de usuario.
+
+---
+
+## 🔗 Endpoints Principales
+
+```http
+POST   /api/auth/login
+GET    /api/clientes/
+POST   /api/clientes/
+GET    /api/facturas/
+POST   /api/facturas/
+GET    /api/facturas/<id>/
+GET    /api/facturas/<id>/pdf
+GET    /api/facturas/<id>/xml
+POST   /api/facturas/<id>/enviar-dian
+GET    /api/facturas/<id>/estado-dian
 ```
-Escribe mensajes de commit claros y concisos.
-Usa entornos virtuales para evitar conflictos de dependencias.
-No subas archivos del entorno (env/, .env, etc.).
+--- 
+## 📐 Arquitectura de la App Web
+- Esquema en construcción.
 
 ---
-## 🧠 ¿Dudas?
-Si tienes alguna pregunta, contacta con el responsable técnico del proyecto o abre una issue en el repositorio.
+## 🧭 Diagrama de Flujo (Simplificado)
+- En proceso de diseño. Incluirá: autenticación → generación de factura → firma → envío DIAN → consulta estado.
 
 ---
-## 🚀 ¡Feliz desarrollo!
+## 📦 Entregables
+- API funcional (Flask, Python).
+
+- Esquema de base de datos.
+
+- Documentación técnica (Swagger/OpenAPI, instalación, despliegue).
+
+- Scripts de generación de XML UBL 2.1.
+
+- Función de firma digital.
+
+- Manual de uso para los endpoints.
+
+- Guía de integración con la DIAN.
+
+---
+## 📝 Observaciones
+- Usar el entorno de pruebas de la DIAN antes de producción.
+
+- Cumplir con la estructura XML UBL oficial provista por la DIAN.
+
+- El CUFE debe ser generado correctamente y el XML firmado antes del envío.
+
+© 2025 ProtoDev Labs
