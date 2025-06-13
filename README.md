@@ -5,7 +5,8 @@ Este documento está dirigido a los desarrolladores que trabajan en la rama de d
 ---
 <a href="https://git-scm.com/book/es/v2/Ap%C3%A9ndice-C:-Comandos-de-Git-Seguimiento-B%C3%A1sico">Documentacion oficial de git</a>
 ---
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vlCXdvcgiE0?si=0y3OaaL3Rg7Uh2Io" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Título del Video](https://img.youtube.com/vi/vlCXdvcgiE0/0.jpg)](https://www.youtube.com/watch?v=vlCXdvcgiE0)
+
 ---
 ## 🔁 Clonar el repositorio
 
