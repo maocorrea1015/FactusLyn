@@ -1,3 +1,4 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/maocorrea1015/FactusLyn)
 # Sistema de Facturación Electrónica – Backend en Flask
 
 **Versión:** 1.0  
