@@ -1,0 +1,112 @@
+
+
+
+CREATE TABLE "customer" (
+    "id" bigint NOT NULL,
+    "name" varchar,
+    "NIT" varchar,
+    "address" varchar,
+    "phone" varchar,
+    "email" varchar,
+    PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE "company" (
+    "id" bigint NOT NULL,
+    "company_name" varchar,
+    "NIT" varchar,
+    "Adres" varchar,
+    "phone" varchar,
+    "email" varchar,
+    "dian_resolution" varchar,
+    "invoice_prefix" varchar,
+    "initial_range" integer,
+    "end_range" integer,
+    PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE "product" (
+    "id" bigint NOT NULL,
+    "name" varchar,
+    "description" text,
+    "unit_price" decimal,
+    "IVA" decimal,
+    "stock" integer,
+    PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE "bill" (
+    "id" bigint NOT NULL,
+    "number" varchar NOT NULL,
+    "issue_date" time NOT NULL,
+    "company_id" bigint NOT NULL,
+    "customer_id" bigint NOT NULL,
+    "subtotal" decimal NOT NULL,
+    "IVA_total" decimal NOT NULL,
+    "total" decimal NOT NULL,
+    "state" varchar NOT NULL,
+    "cufe" varchar NOT NULL,
+    "xml_dian" text NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE "invoice_detail" (
+    "id" bigint NOT NULL,
+    "bill_id" bigint,
+    "product_id" bigint,
+    "amount" integer,
+    "unit_price" decimal,
+    "IVA" decimal,
+    "total_line" decimal,
+    PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE "pay" (
+    "id" bigint NOT NULL,
+    "bill_id" bigint,
+    "payment_date" time,
+    "amount" decimal,
+    "method" varchar,
+    "observations" text,
+    PRIMARY KEY ("id")
+);
+
+
+
+CREATE TABLE "invoice_annex" (
+    "id" bigint NOT NULL,
+    "bill_id" bigint,
+    "name" varchar,
+    "archive" text,
+    PRIMARY KEY ("id")
+);
+
+
+
+ALTER TABLE "company"
+ADD CONSTRAINT "fk_company_id_bill_company_id" FOREIGN KEY("id") REFERENCES "bill"("company_id");
+
+ALTER TABLE "bill"
+ADD CONSTRAINT "fk_bill_customer_id_customer_id" FOREIGN KEY("customer_id") REFERENCES "customer"("id");
+
+ALTER TABLE "bill"
+ADD CONSTRAINT "fk_bill_id_invoice_detail_bill_id" FOREIGN KEY("id") REFERENCES "invoice_detail"("bill_id");
+
+ALTER TABLE "product"
+ADD CONSTRAINT "fk_product_id_invoice_detail_product_id" FOREIGN KEY("id") REFERENCES "invoice_detail"("product_id");
+
+ALTER TABLE "pay"
+ADD CONSTRAINT "fk_pay_bill_id_bill_id" FOREIGN KEY("bill_id") REFERENCES "bill"("id");
+
+ALTER TABLE "bill"
+ADD CONSTRAINT "fk_bill_id_invoice_annex_bill_id" FOREIGN KEY("id") REFERENCES "invoice_annex"("bill_id");

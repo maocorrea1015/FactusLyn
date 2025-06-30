@@ -20,7 +20,7 @@ def create_app():
     from app.routes.auth_routes import auth_bp
     from app.routes.invoice_routes import invoice_bp
 
-    app.register_blueprint(auth_bp, url_prefix="/api/auth")
-    app.register_blueprint(invoice_bp, url_prefix="/api/invoices")
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(invoice_bp, url_prefix="/invoices")
 
     return app
