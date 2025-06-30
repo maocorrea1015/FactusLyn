@@ -7,8 +7,13 @@
 **Responsable Técnico:** Héctor Mauricio Forero Correa
 
 ---
+<a href="https://git-scm.com/book/es/v2/Ap%C3%A9ndice-C:-Comandos-de-Git-Seguimiento-B%C3%A1sico">Documentacion oficial de git</a>
+---
+[![Título del Video](https://img.youtube.com/vi/vlCXdvcgiE0/0.jpg)](https://www.youtube.com/watch?v=vlCXdvcgiE0)
+
 
 ## 🧾 Objetivo del Proyecto
+
 
 Desarrollar una **API REST** en **Flask (Python)** que gestione el ciclo completo de una factura electrónica conforme a la normativa de la **DIAN**. Esta API será consumida por sistemas frontend o integraciones externas.
 
@@ -126,6 +131,7 @@ GET    /api/facturas/<id>/estado-dian
 - Guía de integración con la DIAN.
 
 ---
+
 ## 📝 Observaciones
 - Usar el entorno de pruebas de la DIAN antes de producción.
 
@@ -134,3 +140,4 @@ GET    /api/facturas/<id>/estado-dian
 - El CUFE debe ser generado correctamente y el XML firmado antes del envío.
 
 © 2025 ProtoDev Labs
+
