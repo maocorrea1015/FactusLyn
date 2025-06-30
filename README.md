@@ -3,7 +3,11 @@
 Este documento está dirigido a los desarrolladores que trabajan en la rama de desarrollo de **Factuslyn**, el sistema de gestión de facturación web. Aquí encontrarás los pasos básicos para clonar el proyecto, configurar el entorno de desarrollo y trabajar correctamente con Git.
 
 ---
+<a href="https://git-scm.com/book/es/v2/Ap%C3%A9ndice-C:-Comandos-de-Git-Seguimiento-B%C3%A1sico">Documentacion oficial de git</a>
+---
+[![Título del Video](https://img.youtube.com/vi/vlCXdvcgiE0/0.jpg)](https://www.youtube.com/watch?v=vlCXdvcgiE0)
 
+---
 ## 🔁 Clonar el repositorio
 
 Primero, clona el repositorio en tu máquina local:
